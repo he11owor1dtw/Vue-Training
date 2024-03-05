@@ -1,31 +1,21 @@
 <script setup>
-let level = 0;
-let topic = ["HTML", "CSS", "JavaScript", "Vue.js"];  // 陣列
-let topics = { html: "HTML", css: "CSS", js: "JavaScript", vue: "Vue.js" };  // 物件
+let handler = function () {
+  console.log("Click");
+}
+
+let mouseoverHandler = function () {
+  console.log("Mouse Over");
+}
 </script>
 
 <template>
   <nav>導覽列</nav>
   <main>
-    <div v-if="level === 3">大神</div>
-    <div v-else-if="level === 2">資深</div>
-    <div v-else-if="level === 1">中階</div>
-    <div v-else>
-      <div>入門</div>
-      <ul>
-        <li v-for="(name, index) in topic">
-          {{ index }}-{{ name }}
-        </li>
-      </ul>
-    </div>
-    <div v-else>
-      <div>入門</div>
-      <ul>
-        <li v-for="(value, key) in topics">  <!-- value=值 , key=鍵 -->
-          {{ key }}-{{ value }}
-        </li>
-      </ul>
-    </div>
+    <button v-on:click="handler">按鈕</button>
+    <button @click.once="handler" @mouseover="mouseoverHandler">按鈕</button> <!-- 簡寫 -->
+    <a @click.prevent="handler" href="https://he11owor1dtw.github.io/">
+      個人網站
+    </a> <!-- .prevent 停止超連結並在 console 印出 click -->
   </main>
 </template>
 
