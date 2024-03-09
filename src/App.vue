@@ -1,25 +1,33 @@
 <script setup>
-let handler = function () {
-  console.log("Click");
-}
+import { ref } from "vue";
+let state = ref({
+  title: "網站標題",
+  className: "title"
+});
 
-let mouseoverHandler = function () {
-  console.log("Mouse Over");
-}
+let handler = function () {
+  state.value.title = "新的網站標題";
+  state.value.className = "title highlight";
+};
 </script>
 
 <template>
   <nav>導覽列</nav>
   <main>
-    <button v-on:click="handler">按鈕</button>
-    <button @click.once="handler" @mouseover="mouseoverHandler">按鈕</button> <!-- 簡寫 -->
-    <a @click.prevent="handler" href="https://he11owor1dtw.github.io/">
-      個人網站
-    </a> <!-- .prevent 停止超連結並在 console 印出 click -->
+    <div :class="state.className">{{ state.title }}</div>
+    <button @click="handler">按鈕</button>
   </main>
 </template>
 
 <style scoped>
+.title {
+  font-weight: bold;
+}
+
+.highlight{
+  color: blue;
+}
+
 main {
   background-color: rgb(113, 223, 155);
 }
