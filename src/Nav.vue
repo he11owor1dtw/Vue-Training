@@ -1,9 +1,10 @@
 <script setup>
-defineProps(['title']);
+defineProps(['title','subtitle']);
 </script>
 
 <template>
-  <nav>{{ title }}</nav>
+  <div>{{ title }}</div>
+  <div>{{ subtitle }}</div>
 </template>
 
 <style scoped>
