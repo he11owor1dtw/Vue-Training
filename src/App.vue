@@ -1,30 +1,38 @@
 <script setup>
-// 資料串接網址 https://cwpeng.github.io/live-records-samples/data/products.json
-import { onMounted, ref } from "vue";
-import List from "./List.vue";
-// 建立響應式狀態 products 一開始是空值 null
-let products = ref(null);
-
-// 組件掛載完成後，開始呼叫 fetch 串接後端的資料
-onMounted(async function () {
-  let response = await fetch("https://cwpeng.github.io/live-records-samples/data/products.json")
-  let data = await response.json();
-  // console.log(data);
-  products.value = data;
-})
+// 產品資料串接網址：https://cwpeng.github.io/live-records-samples/data/reviews.json
+// 評論資料串接網址：https://cwpeng.github.io/live-records-samples/data/products.json
+// 建立一個標籤選單做內容切換
+import { ref } from "vue";
+import ProductPage from "./product/ProductPage.vue";
+import ReviewPage from "./review/ReviewPage.vue";
+// 記錄一個 page 的響應式狀態，用來決定現在要看的是哪一個內容 product or review，預設為 product
+let page = ref("product");
+let change = function (clickedPage) {
+  page.value = clickedPage;
+}
 </script>
 
 <template>
-  <div class="headline">產品資料列表</div>
-  <div v-if="products === null">資料載入中</div>
-  <List v-else :products="products"></List>
+  <nav>
+    <span :class="page === 'product' ? 'current' : ''" @click="change('product')">產品資料</span>
+    <span :class="page === 'review' ? 'current' : ''" @click="change('review')">評論訊息</span>
+  </nav>
+  <main>
+    <ProductPage v-if="page === 'product'"></ProductPage>
+    <ReviewPage v-if="page === 'review'"></ReviewPage>
+  </main>
 </template>
 
 <style scoped>
-.headline {
+nav {
   font-size: 20px;
-  font-weight: bolder;
 }
 
+nav>span {
+  margin-right: 10px;
+}
 
-</style>
+nav>span.current {
+  font-weight: bold;
+}
+</style>./product/ProductPage.vue./review/ReviewPage.vue
